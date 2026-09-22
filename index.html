@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('AI Interview Preparation Platform')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('home')}"></header>
+
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">Java-based academic interview trainer</p>
+        <h1>AI Interview Preparation Platform</h1>
+        <p class="tagline">Practice. Evaluate. Improve. Succeed.</p>
+        <p class="lead">
+            An interactive Java-based interview preparation platform that evaluates technical answers using
+            keyword matching, calculates performance, and provides personalized feedback to help students
+            improve their interview skills.
+        </p>
+        <div class="cta-row">
+            <a class="btn btn-primary" th:href="@{/start}">Start Interview</a>
+            <a class="btn btn-ghost" href="#how-it-works">How It Works</a>
+            <a class="btn btn-ghost" href="#technologies">Technologies Used</a>
+        </div>
+        <div class="stat-row">
+            <div>
+                <strong th:text="${questionCount}">100</strong>
+                <span>Technical questions</span>
+            </div>
+            <div>
+                <strong th:text="${#lists.size(categories)}">8</strong>
+                <span>Interview categories</span>
+            </div>
+            <div>
+                <strong>Java</strong>
+                <span>Core evaluation engine</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="mini-card">
+            <span class="pill">Live evaluation</span>
+            <h3>Keyword matching in Java</h3>
+            <p>Student answers are normalized, compared with expected keywords, scored, and graded automatically.</p>
+            <ul class="check-list">
+                <li>ArrayList question bank</li>
+                <li>OOP class design</li>
+                <li>Score and percentage in Java</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="how-it-works">
+    <h2>How It Works</h2>
+    <p class="section-lead">The website collects answers through forms. Spring Boot passes them into Java interview classes — the same logic a Scanner console program would run after <code>nextLine()</code>.</p>
+    <div class="card-grid three">
+        <article class="card">
+            <span class="step">01</span>
+            <h3>Choose a practice set</h3>
+            <p>Enter your name, pick a category, and select 10, 25, 50, 75, or 100 questions.</p>
+        </article>
+        <article class="card">
+            <span class="step">02</span>
+            <h3>Answer one question at a time</h3>
+            <p>Type a technical explanation. Submit sends the text to the Java backend, not a JavaScript scorer.</p>
+        </article>
+        <article class="card">
+            <span class="step">03</span>
+            <h3>See matched keywords</h3>
+            <p>The matcher counts hits, awards marks, and explains missing concepts before the next question.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section alt" id="architecture">
+    <h2>System Architecture</h2>
+    <div class="arch-flow">
+        <div class="arch-card">Student Input<br/><small>HTML form</small></div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">Interview Questions<br/><small>ArrayList bank</small></div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">Java Question Management</div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">Keyword Matching Algorithm</div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">Answer Evaluation</div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">Score Calculation</div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">Performance Analysis</div>
+        <span class="arrow">↓</span>
+        <div class="arch-card">AI-style Feedback Generation</div>
+        <span class="arrow">↓</span>
+        <div class="arch-card highlight">Final Result Dashboard</div>
+    </div>
+</section>
+
+<section class="section" id="technologies">
+    <h2>Technologies Used</h2>
+    <div class="card-grid four">
+        <article class="card"><h3>Java</h3><p>OOP classes, ArrayList, collections, and all scoring logic.</p></article>
+        <article class="card"><h3>Spring Boot</h3><p>Controllers, services, sessions, and Thymeleaf views.</p></article>
+        <article class="card"><h3>Thymeleaf</h3><p>Connects Java model data to HTML pages.</p></article>
+        <article class="card"><h3>HTML / CSS / JS</h3><p>Interface, layout, and visual progress only.</p></article>
+    </div>
+</section>
+
+<section class="section alt" id="implementation">
+    <h2>Implementation Highlights</h2>
+    <div class="card-grid two">
+        <article class="card"><h3>Question class</h3><p>Stores interview questions, expected keywords, categories, difficulty, and marks.</p></article>
+        <article class="card"><h3>ArrayList</h3><p>Stores and manages the collection of interview questions and keyword lists.</p></article>
+        <article class="card"><h3>OOP</h3><p>Question, Student, Interview, KeywordMatcher, AnswerEvaluator, ScoreManager, PerformanceAnalyzer, FeedbackGenerator.</p></article>
+        <article class="card"><h3>Keyword matching</h3><p>Lowercases the answer, strips punctuation, and counts expected concept matches.</p></article>
+        <article class="card"><h3>Score calculation</h3><p>Marks = (matched keywords / total keywords) × maximum marks.</p></article>
+        <article class="card"><h3>Percentage &amp; grading</h3><p>Java computes total score, percentage, and Excellent → More Practice Required.</p></article>
+        <article class="card"><h3>AI-style feedback</h3><p>Personalized suggestions from weak categories. No fake neural-network claim — this is rule-based Java intelligence.</p></article>
+        <article class="card"><h3>Scanner vs web input</h3><p>Console labs use Scanner. This app uses web forms as the equivalent input channel. See <code>ScannerInputDemo</code>.</p></article>
+    </div>
+</section>
+
+<section class="section" id="io">
+    <h2>Input Used</h2>
+    <div class="card-grid four">
+        <article class="card"><h3>1. Predefined questions</h3><p>Loaded into Java at startup from <code>QuestionRepository</code>.</p></article>
+        <article class="card"><h3>2. Expected keywords</h3><p>Important concepts stored with every question object.</p></article>
+        <article class="card"><h3>3. Student answers</h3><p>Entered in the website textarea and POSTed to Spring Boot.</p></article>
+        <article class="card"><h3>4. Student information</h3><p>Name, category, and number of questions from the start form.</p></article>
+    </div>
+    <h2 class="spaced">Output Produced</h2>
+    <p class="section-lead">Student name, total questions, total score, percentage, performance grade, category-wise performance, keyword matching results, strong areas, weak areas, and AI-style suggestions.</p>
+</section>
+
+<section class="section alt" id="features">
+    <h2>Key Features</h2>
+    <ul class="feature-grid">
+        <li>50–100+ technical interview questions</li>
+        <li>Interactive interview session</li>
+        <li>Multiple technical categories</li>
+        <li>Automatic Java answer evaluation</li>
+        <li>Keyword matching algorithm</li>
+        <li>Real-time feedback</li>
+        <li>Automatic score and percentage</li>
+        <li>Performance grading</li>
+        <li>Category-wise analysis</li>
+        <li>Personalized improvement suggestions</li>
+        <li>Restart interview option</li>
+        <li>Responsive interface</li>
+    </ul>
+    <div class="center">
+        <a class="btn btn-primary" th:href="@{/start}">Begin practice interview</a>
+    </div>
+</section>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

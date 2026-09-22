@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Start Interview')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('start')}"></header>
+
+<section class="page-narrow">
+    <p class="eyebrow">Welcome to Your Interview Preparation</p>
+    <h1>Set up your practice interview</h1>
+    <p class="lead">Your name, category, and answers are collected through this form and processed in Java — the web equivalent of Scanner keyboard input.</p>
+
+    <div class="flash" th:if="${error}" th:text="${error}"></div>
+
+    <form class="panel form" method="post" th:action="@{/start}">
+        <label>
+            Enter Your Name
+            <input type="text" name="studentName" required maxlength="80" placeholder="Rithika"/>
+        </label>
+
+        <label>
+            Select Category
+            <select name="category">
+                <option value="All Categories">All Categories</option>
+                <option value="Java">Java</option>
+                <option value="OOP">OOP</option>
+                <option value="Data Structures">Data Structures</option>
+                <option value="Algorithms">Algorithms</option>
+                <option value="DBMS & SQL">DBMS &amp; SQL</option>
+                <option value="Operating Systems">Operating Systems</option>
+                <option value="Computer Networks">Computer Networks</option>
+                <option value="Mixed Technical Interview">Mixed Technical Interview</option>
+            </select>
+        </label>
+
+        <fieldset>
+            <legend>Select Number of Questions</legend>
+            <div class="choice-row">
+                <label class="choice"><input type="radio" name="questionCount" value="10" checked/> 10</label>
+                <label class="choice"><input type="radio" name="questionCount" value="25"/> 25</label>
+                <label class="choice"><input type="radio" name="questionCount" value="50"/> 50</label>
+                <label class="choice"><input type="radio" name="questionCount" value="75"/> 75</label>
+                <label class="choice"><input type="radio" name="questionCount" value="100"/> 100</label>
+            </div>
+            <p class="hint">Bank size: <span th:text="${maxAvailable}">100</span> questions. If you pick more than a category contains, Java uses every available question in that category.</p>
+        </fieldset>
+
+        <button class="btn btn-primary" type="submit">Start Interview</button>
+    </form>
+</section>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

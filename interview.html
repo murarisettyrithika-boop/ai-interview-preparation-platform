@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Interview')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('interview')}"></header>
+
+<section class="dashboard" th:if="${question != null}">
+    <div class="dash-meta">
+        <div>
+            <span>Student</span>
+            <strong th:text="${student.name}">Student</strong>
+        </div>
+        <div>
+            <span>Question</span>
+            <strong>
+                <span th:text="${interview.currentNumber}">1</span>
+                /
+                <span th:text="${interview.totalQuestions}">50</span>
+            </strong>
+        </div>
+        <div>
+            <span>Category</span>
+            <strong th:text="${question.category}">Java</strong>
+        </div>
+        <div>
+            <span>Difficulty</span>
+            <strong th:text="${question.difficulty}">Medium</strong>
+        </div>
+        <div>
+            <span>Running score</span>
+            <strong>
+                <span th:text="${#numbers.formatDecimal(student.totalScore, 1, 1)}">0.0</span>
+                /
+                <span th:text="${student.maximumScore}">0</span>
+            </strong>
+        </div>
+    </div>
+
+    <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" th:style="'width:' + ${progressPercent} + '%'"></div>
+    </div>
+
+    <div class="flash" th:if="${error}" th:text="${error}"></div>
+
+    <article class="question-card">
+        <p class="eyebrow">Interview question</p>
+        <h1 th:text="${question.text}">Question</h1>
+        <p class="hint">Maximum marks: <span th:text="${question.maxMarks}">2</span> · Expected keywords are hidden until you submit.</p>
+
+        <form method="post" th:action="@{/interview/submit}">
+            <label>
+                Type your answer here
+                <textarea name="answer" rows="10" required placeholder="Type your answer here..."></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Submit Answer</button>
+        </form>
+    </article>
+</section>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
