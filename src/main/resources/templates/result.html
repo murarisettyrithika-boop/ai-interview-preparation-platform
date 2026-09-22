@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Interview Completed')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('result')}"></header>
+
+<section class="dashboard result-page" th:if="${report != null}">
+    <p class="eyebrow">Interview Completed!</p>
+    <h1>Performance report</h1>
+
+    <div class="result-hero">
+        <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 120 120" role="img" th:attr="aria-label=${'Percentage ' + report.roundedPercentage}">
+                <circle cx="60" cy="60" r="52" class="ring-bg"></circle>
+                <circle cx="60" cy="60" r="52" class="ring-fg"
+                        th:attr="stroke-dasharray=${report.roundedPercentage * 3.27} + ' 327'"></circle>
+            </svg>
+            <div class="ring-label">
+                <strong th:text="${report.roundedPercentage + '%'}">82%</strong>
+                <span>Percentage</span>
+            </div>
+        </div>
+        <div class="score-cards">
+            <article class="card">
+                <span>Student Name</span>
+                <strong th:text="${student.name}">Rithika</strong>
+            </article>
+            <article class="card">
+                <span>Total Score</span>
+                <strong>
+                    <span th:text="${#numbers.formatDecimal(report.totalScore, 1, 1)}">82.0</span>
+                    /
+                    <span th:text="${report.maximumScore}">100</span>
+                </strong>
+            </article>
+            <article class="card">
+                <span>Performance</span>
+                <strong th:text="${report.performanceGrade}">Very Good</strong>
+            </article>
+            <article class="card">
+                <span>Keyword match</span>
+                <strong th:text="${#numbers.formatDecimal(report.overallKeywordMatchPercentage, 1, 1) + '%'}">80%</strong>
+            </article>
+        </div>
+    </div>
+    <p class="lead" th:text="${encouragement}">Encouragement</p>
+
+    <div class="eval-grid">
+        <div class="card"><h3>Total Questions</h3><p class="big" th:text="${report.totalQuestions}">50</p></div>
+        <div class="card"><h3>Strong answers</h3><p class="big" th:text="${report.goodAnswers}">20</p></div>
+        <div class="card"><h3>Partially correct</h3><p class="big" th:text="${report.partialAnswers}">18</p></div>
+        <div class="card"><h3>Needs improvement</h3><p class="big" th:text="${report.weakAnswers}">12</p></div>
+    </div>
+
+    <h2>Category-wise Performance</h2>
+    <div class="category-list">
+        <div class="cat-row" th:each="cat : ${report.categoryStats}">
+            <div class="cat-head">
+                <span th:text="${cat.category}">Java</span>
+                <strong th:text="${#numbers.formatDecimal(cat.percentage, 1, 0) + '%'}">85%</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" th:style="'width:' + ${cat.percentage} + '%'"></div>
+            </div>
+            <p class="hint">
+                Score
+                <span th:text="${#numbers.formatDecimal(cat.score, 1, 1)}">8</span>
+                /
+                <span th:text="${cat.maxScore}">10</span>
+                ·
+                <span th:text="${cat.questionsAttempted}">5</span> questions
+            </p>
+        </div>
+    </div>
+
+    <div class="ai-columns">
+        <article class="ai-box">
+            <h3>Your Strengths</h3>
+            <ul>
+                <li th:each="item : ${report.strengths}" th:text="${item}">Strength</li>
+            </ul>
+        </article>
+        <article class="ai-box">
+            <h3>Areas to Improve</h3>
+            <ul>
+                <li th:each="item : ${report.areasToImprove}" th:text="${item}">Area</li>
+            </ul>
+        </article>
+    </div>
+
+    <article class="ai-box">
+        <h3>Personalized Suggestions</h3>
+        <p th:each="item : ${report.suggestions}" th:text="${item}">Suggestion</p>
+        <p class="hint">Suggestions change with your actual category scores and missed keywords. Produced by Java, not an external chatbot.</p>
+    </article>
+
+    <form method="post" th:action="@{/restart}">
+        <button class="btn btn-primary" type="submit">Restart / Practice Again</button>
+        <a class="btn btn-ghost" th:href="@{/}">Back to Home</a>
+    </form>
+</section>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
